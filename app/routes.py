@@ -1,6 +1,7 @@
 from flask import  render_template, request
 import requests
 from app import app 
+from datetime import datetime
 
 # OpenWeatherMap API endpoint and API key
 API_ENDPOINT = "http://api.openweathermap.org/data/2.5/forecast"
@@ -32,8 +33,9 @@ def day(day):
     response = requests.get(API_ENDPOINT, params=params)
     data = response.json()
     forecast = data['list']
-    day_data = forecast[day*8]  # OpenWeatherMap API returns 8 forecasts per day
-    return render_template('day.html', day_data=day_data)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    day_forecast = []
+    for f in forecast:
+        dt = datetime.strptime(f['dt_txt'], '%Y-%m-%d %H:%M:%S')
+        if dt.date() == datetime.strptime(forecast[day*8]['dt_txt'], '%Y-%m-%d %H:%M:%S').date():
+            day_forecast.append(f)
+    return render_template('day.html', day_forecast=day_forecast)

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Weather for {{ day_data['dt_txt'] }}</title>
+    <title>Weather for {{ day_forecast[0].dt_txt }}</title>
   </head>
   <body>
-    <h1>Weather for {{ day_data['dt_txt'] }}</h1>
-    <p>Temperature: {{ day_data['main']['temp'] }}°C</p>
-    <p>Humidity: {{ day_data['main']['humidity'] }}%</p>
-    <p>Weather: {{ day_data['weather'][0]['description'] }}</p>
+    <h1>Weather for {{ day_forecast[0].dt_txt }}</h1>
+    <ul>
+      {% for forecast in day_forecast %}
+        <li>
+          {{ forecast.dt_txt }}: {{ forecast.main.temp }}°C ({{ forecast.weather[0].description }})
+        </li>
+      {% endfor %}
+    </ul>
   </body>
 </html>
