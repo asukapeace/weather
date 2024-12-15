@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather Results</title>
+  </head>
+  <body>
+    <h1>Weather for {{ city }}</h1>
+    <ul>
+      {% for i in range(5) %}
+        <li>
+          <a href="{{ url_for('day', day=i, city=city) }}">{{ forecast[i*8]['dt_txt'] }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
