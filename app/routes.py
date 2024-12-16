@@ -2,11 +2,10 @@ from flask import  render_template, request
 import requests
 from app import app 
 from datetime import datetime
-import os
+from config import OPENWEATHER_API_KEY
 
 # OpenWeatherMap API endpoint and API key
 API_ENDPOINT = "http://api.openweathermap.org/data/2.5/forecast"
-API_KEY = os.environ.get('OPENWEATHER_API_KEY')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -15,7 +14,7 @@ def index():
         params = {
             'q': city,
             'units': 'metric',
-            'appid': API_KEY
+            'appid': OPENWEATHER_API_KEY
         }
         response = requests.get(API_ENDPOINT, params=params)
         data = response.json()
@@ -29,7 +28,7 @@ def day(day):
     params = {
         'q': city,
         'units': 'metric',
-        'appid': API_KEY
+        'appid': OPENWEATHER_API_KEY
     }
     response = requests.get(API_ENDPOINT, params=params)
     data = response.json()
