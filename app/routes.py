@@ -9,6 +9,7 @@ API_ENDPOINT = "http://api.openweathermap.org/data/2.5/forecast"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    i=1
     if request.method == 'POST':
         city = request.form['city']
         params = {
@@ -19,6 +20,8 @@ def index():
         response = requests.get(API_ENDPOINT, params=params)
         data = response.json()
         forecast = data['list']
+        for forecastData in forecast:
+            forecastData['dt'] = forecastData['dt_txt'].split(" ")[0]
         return render_template('results.html', forecast=forecast, city=city)
     return render_template('index.html')
 
