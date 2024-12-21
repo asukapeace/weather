@@ -2,15 +2,18 @@
 <html>
   <head>
     <title>Weather Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
     <h1>Weather for {{ city }}</h1>
-    <ul>
+    <div class="results-container">
       {% for i in range(5) %}
-        <li>
-          <a href="{{ url_for('day', day=i, city=city) }}">{{ forecast[i*8]['dt_txt'] }}</a>
-        </li>
+        <div class="result">
+          <a href="{{ url_for('day', day=i, city=city) }}">{{ forecast[i*8]['dt'] }}</a>
+          <p>{{ most_frequent_conditions[forecast[i*8]['dt']] }}</p>
+          <img class=condition src="{{ url_for('static', filename='assets/' + most_frequent_conditions[forecast[i*8]['dt']] + '.png') }}" alt="{{ most_frequent_conditions[forecast[i*8]['dt']] }}">
+        </div>
       {% endfor %}
-    </ul>
+    </div>
   </body>
 </html>
