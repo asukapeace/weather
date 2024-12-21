@@ -10,6 +10,8 @@
       {% for i in range(5) %}
         <div class="result">
           <a href="{{ url_for('day', day=i, city=city) }}">{{ forecast[i*8]['dt'] }}</a>
+          <p>{{ most_frequent_conditions[forecast[i*8]['dt']] }}</p>
+          <img class=condition src="{{ url_for('static', filename='assets/' + most_frequent_conditions[forecast[i*8]['dt']] + '.png') }}" alt="{{ most_frequent_conditions[forecast[i*8]['dt']] }}">
         </div>
       {% endfor %}
     </div>

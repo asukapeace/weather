@@ -3,13 +3,13 @@ import requests
 from app import app 
 from datetime import datetime
 from config import OPENWEATHER_API_KEY
+from collections import defaultdict
 
 # OpenWeatherMap API endpoint and API key
 API_ENDPOINT = "http://api.openweathermap.org/data/2.5/forecast"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    i=1
     if request.method == 'POST':
         city = request.form['city']
         params = {
@@ -22,7 +22,21 @@ def index():
         forecast = data['list']
         for forecastData in forecast:
             forecastData['dt'] = forecastData['dt_txt'].split(" ")[0]
-        return render_template('results.html', forecast=forecast, city=city)
+
+        weather_conditions = defaultdict(dict)
+        for forecast_data in forecast:
+            date = forecast_data['dt']
+            condition = forecast_data['weather'][0]['main']
+            if condition in weather_conditions[date]:
+                weather_conditions[date][condition] += 1
+            else:
+                weather_conditions[date][condition] = 1
+
+        most_frequent_conditions = {}
+        for date, conditions in weather_conditions.items():
+            most_frequent_conditions[date] = max(conditions, key=conditions.get)
+
+        return render_template('results.html', forecast=forecast, city=city, most_frequent_conditions=most_frequent_conditions)
     return render_template('index.html')
 
 @app.route('/day/<int:day>')
