@@ -85,3 +85,17 @@ h1 {
   height : 60px;
   width : 60px;
 }
+
+.forecast-day {
+  height: 150px;
+  width: 150px;
+  text-align: center;
+  display: inline-block;
+  outline: 1px solid #000;
+}
+
+.day-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

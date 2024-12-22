@@ -2,15 +2,16 @@
 <html>
   <head>
     <title>Weather for {{ day_forecast[0].dt_txt }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
     <h1>Weather for {{ day_forecast[0].dt_txt }}</h1>
-    <ul>
+    <div class="day-container">
       {% for forecast in day_forecast %}
-        <li>
+        <div class="forecast-day">
           {{ forecast.dt_txt }}: {{ forecast.main.temp }}°C ({{ forecast.weather[0].description }})
-        </li>
+        </div>
       {% endfor %}
-    </ul>
+      </div>
   </body>
 </html>
