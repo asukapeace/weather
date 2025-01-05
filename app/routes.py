@@ -54,5 +54,6 @@ def day(day):
     for f in forecast:
         dt = datetime.strptime(f['dt_txt'], '%Y-%m-%d %H:%M:%S')
         if dt.date() == datetime.strptime(forecast[day*8]['dt_txt'], '%Y-%m-%d %H:%M:%S').date():
+            f['today'] = dt.date()
             day_forecast.append(f)
     return render_template('day.html', day_forecast=day_forecast)
