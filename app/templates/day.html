@@ -5,11 +5,12 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Weather for {{ day_forecast[0].date }}</h1>
+    <h1>Weather for {{ day_forecast[0].today }}</h1>
     <div class="forecast-container">
         {% for forecastData in day_forecast %}
           <div class="forecast-box" onclick="toggleBreakdown('{{ forecastData['dt'] }}')">
-            <span>{{ forecastData['dt_txt'] }}</span>
+            <span>{{ forecastData['time'] }}</span>
+            <span>{{ forecastData['weather'][0]['description'] }}</span>
             <span>click for breakdown</span>
             <div class="day-breakdown" id="breakdown-{{ forecastData['dt'] }}" style="display: none;">
               <table>
@@ -18,16 +19,16 @@
                   <td>{{ forecastData['main']['temp'] }}°C</td>
                 </tr>
                 <tr>
+                  <th>Feels like</th>
+                  <td>{{ forecastData['main']['feels_like'] }}°C</td>
+                </tr>
+                <tr>
                   <th>Humidity</th>
                   <td>{{ forecastData['main']['humidity'] }}%</td>
                 </tr>
                 <tr>
                   <th>Wind Speed</th>
                   <td>{{ forecastData['wind']['speed'] }} m/s</td>
-                </tr>
-                <tr>
-                  <th>Weather Condition</th>
-                  <td>{{ forecastData['weather'][0]['description'] }}</td>
                 </tr>
               </table>
             </div>
