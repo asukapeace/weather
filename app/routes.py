@@ -57,6 +57,4 @@ def day(day):
             f['today'] = dt.date()
             f['time'] = dt.time()
             day_forecast.append(f)
-            print(f)
-            print(' ')
     return render_template('day.html', day_forecast=day_forecast)

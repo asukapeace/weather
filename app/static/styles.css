@@ -51,12 +51,18 @@ input[type="submit"]:hover {
   background-color: #3e8e41;
 }
 
-.result {
-  height: 150px;
+.result-box {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 200px;
-  text-align: center;
-  display: inline-block;
-  outline: 1px solid #000;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .results-container {
@@ -115,4 +121,12 @@ h1 {
 
 .day-breakdown {
   margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
 }
