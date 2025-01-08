@@ -11,6 +11,15 @@
           <div class="forecast-box" onclick="toggleBreakdown('{{ forecastData['dt'] }}')">
             <span>{{ forecastData['time'] }}</span>
             <span>{{ forecastData['weather'][0]['description'] }}</span>
+            {% if 'cloud' in forecastData['weather'][0]['description'].lower() %}
+              <img src="{{ url_for('static', filename='assets/Clouds.png') }}" alt="Clouds">
+            {% elif 'clear' in forecastData['weather'][0]['description'].lower() %}
+              <img src="{{ url_for('static', filename='assets/Clear.png') }}" alt="Clear">
+            {% elif 'snow' in forecastData['weather'][0]['description'].lower() %}
+              <img src="{{ url_for('static', filename='assets/Snow.png') }}" alt="Snow">
+            {% else %}
+              <img src="{{ url_for('static', filename='assets/Rain.png') }}" alt="rain">
+            {% endif %}
             <span>click for breakdown</span>
             <div class="day-breakdown" id="breakdown-{{ forecastData['dt'] }}" style="display: none;">
               <table>
